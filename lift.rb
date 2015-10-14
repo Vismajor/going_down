@@ -1,13 +1,19 @@
+require 'pry-byebug'
+
 class Lift
-  attr_accessor :max_people, :current_floor, :name
-  attr_reader :passengers
+  attr_accessor  :floor
+  attr_reader :passengers, :max_passengers
 
   def initialize(options={})
-    self.current_floor = 0
-    self.max_people = 8
+    self.floor = 0
+    @max_passengers = 8
     @passengers = []
   end
   #methods: overloaded?, get in, get out
+
+  def distance_to_floor(floor)
+    (self.floor - floor).abs
+  end
 
   def go_up
     self.current_floor += 1
@@ -23,10 +29,10 @@ class Lift
 
   #takes a passenger out - how to store it?
   def leave(passenger)
-    passengers.slice(0)
+    passengers.pop 
   end
 
   def overloaded?
-    passengers.size >= max_people 
+    passengers.size >= max_passengers 
   end
 end
